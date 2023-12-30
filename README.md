@@ -1,2 +1,2 @@
-# mariadb-i386
-i386系OSで動作するMariaDBのDockerイメージ
+# i386環境で動作するMariaDBのDockerイメージ
+公式リポジトリに、i386環境で動作するMariaDBのイメージがなかったので、自作しました。
