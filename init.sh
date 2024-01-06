@@ -1,20 +1,20 @@
 #!/bin/bash
 
-set -e
+# Variable Set
+TZ=${TZ:-Asia/Tokyo}
+DBDIR=${DBDIR:-"/var/lib/mysql"}
+LOGDIR=${LOGDIR:-"/var/log/mysql"}
+SQLCONFSRC="/my.cnf"
+SQLCONFDIST="/etc/mysql/mariadb.cnf"
 
-appSetup () {
-    DEPLOY=${DEPLOY:-dev}
-    TZ=${TZ:-Asia/Tokyo}
-    UNIX_SOCKET_AUTH=${UNIX_SOCKET_AUTH:-Y}
-    MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-password}
-    MARIADB_DATABASE=${MARIADB_DATABASE:-DB1}
-    MARIADB_USER=${MARIADB_USER:-user}
-    MARIADB_PASSWORD=${MARIADB_PASSWORD:-user_pwd}
-    SQLDIR=${SQLDIR:/var/lib/mysql}
-}
+if [ -e $SQLCONFSRC ] ; then
+    cat $SQLCONFSRC >> $SQLCONFDIST
+    rm $SQLCONFSRC
+fi
 
-/etc/init.d/mariadb stop
-
-if [ -d $SQLDIR ] ; then
-    rm -rf "${SQLDIR}/*"
+if [ -d $DBDIR ] ; then
+    rm -rf ${DBDIR}
+fi
+if [ -d $LOGDIR ] ; then
+    rm -rf ${LOGDIR}
 fi

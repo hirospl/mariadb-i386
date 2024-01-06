@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:stable-slim
 
 COPY ./init.sh init.sh
 COPY ./my.cnf my.cnf
@@ -8,6 +8,5 @@ COPY ./setup.sh setup.sh
 RUN apt-get update \
 &&  apt-get -y install mariadb-server \
     expect \
-&&  /bin/bash /init.sh
-
-CMD [ "/bin/bash /setup.sh" ]
+&&  /etc/init.d/mariadb stop \
+&&  /bin/bash init.sh
