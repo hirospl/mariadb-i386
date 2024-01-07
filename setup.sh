@@ -37,11 +37,5 @@ if [ -e /sec_inst.exp ] ; then
     expect /sec_inst.exp $UNIX_SOCKET_AUTH $MARIADB_ROOT_PASSWORD $PASSSET
 fi
 
-apt-get -y purge expect
-apt-get clean autoclean
-apt-get -y autoremove
-rm -rf /var/lib/{apt,dpkg,cache,log}
-rm -rf /tmp/* /var/tmp/*
-rm init.sh
 rm sec_inst.exp
 rm setup.sh
