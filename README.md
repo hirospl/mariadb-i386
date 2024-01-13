@@ -6,5 +6,4 @@ Debianをベースイメージとして使用、Debianの公式リポジトリ�
 - Docker
 - Docker-Compose
 ## 使用方法
-+ 現在作成中
-+ 
++ Docker-Composeを使った、簡単なサンプルを/sampleフォルダ内に用意したので、参考にしてください。
