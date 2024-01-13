@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+
+  mariadb:
+    build: .
+    image: mariadb:dev
+    container_name: mariadb
+    tty: false
+    restart: always
+    volumes:
+      - ./var/lib/mysql:/var/lib/mysql
+      - ./var/log/mysql:/var/log/mysql
+    ports:
+      - 3306:3306

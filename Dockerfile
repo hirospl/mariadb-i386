@@ -1,12 +1,11 @@
 FROM debian:stable-slim
 
 COPY ./init.sh init.sh
-COPY ./my.cnf my.cnf
-COPY ./sec_inst.exp sec_inst.exp
-COPY ./setup.sh setup.sh
 
-RUN apt-get update \
-&&  apt-get -y install mariadb-server \
+RUN groupadd -r mysql \
+&&  useradd -r -g mysql mysql --home-dir /var/lib/mysql \
+&&  apt-get update \
+&&  DEBIAN_FRONTEND=noninteractive apt-get -y install mariadb-server \
     expect \
 &&  /etc/init.d/mariadb stop \
 &&  /bin/bash init.sh \

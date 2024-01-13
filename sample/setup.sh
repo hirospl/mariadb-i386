@@ -7,6 +7,8 @@ MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-n}
 MARIADB_USER=${MARIADB_USER:-mysql}
 DBDIR=${DBDIR:-"/var/lib/mysql"}
 LOGDIR=${LOGDIR:-"/var/log/mysql"}
+SQLCONFSRC="/my.cnf"
+SQLCONFDIST="/etc/mysql/mariadb.cnf"
 
 if [ $MARIADB_ROOT_PASSWORD == "n" ] ; then
     PASSSET=n
@@ -23,6 +25,12 @@ fi
 touch /var/log/mysql/mysqld.log
 
 ## MySQL DB Setup
+if [ -e $SQLCONFSRC ] ; then
+    sed -i 's/\r//g' my.cnf
+    echo -e "\n" | sed "1r ${SQLCONFSRC}" >> $SQLCONFDIST
+    rm $SQLCONFSRC
+fi
+
 if [ ! -d $DBDIR ] ; then
     mysql_install_db --datadir=$DBDIR --user=$MARIADB_USER
 fi
